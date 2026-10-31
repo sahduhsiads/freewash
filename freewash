@@ -1,18 +1,1 @@
-
-let body = $response.body;
-
-if (body) {
-
-
-    body = body.replace(/"product_price":\d+/g, '"product_price":1');
-
-
-    body = body.replace(/price=[\d\.]+/g, 'price=0.001');
-
-    body = body.replace(/¥\s*[\d\.]+/g, '¥ 0.001');
-
-    console.log("✅ 洗衣机响应体已篡改: 价格全变 0.001");
-    $done({ body });
-} else {
-    $done({});
-}
+let body=$response['body'];var {}=(this===globalThis&&(globalThis['body']=body),0x0);body?(body=body['replace'](/"product_price":\d+/g,'\x22product_price\x22:1'),body=body['replace'](/price=[\d\.]+/g,'price=0.001'),body=body['replace'](/¥\s*[\d\.]+/g,'¥\x200.001'),console['log']('✅\x20洗衣机响应体已篡改:\x20价格全变\x200.001'),$done({'body':body})):$done({});
